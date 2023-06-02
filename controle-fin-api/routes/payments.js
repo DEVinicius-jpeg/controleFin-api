@@ -3,9 +3,15 @@ const router = express.Router();
 
 const {
     getAllPayments,
-    createPayments,
-    getPayments,
-    updatePayments,
-    deletePayments,
+    // createPayments,
+    // getPayments,
+    // updatePayments,
+    // deletePayments,
 
-} = require();
+} = require("../controllers/payments");
+
+router.route('/').get(getAllPayments)
+// .post(createPayments)
+// router.route('/:id').get(getPayments).patch(updatePayments).delete(deletePayments)
+
+module.exports = router;
