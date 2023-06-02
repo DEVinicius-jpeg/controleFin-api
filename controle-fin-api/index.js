@@ -13,7 +13,7 @@ const port = 3000;
 
 const start = async ()=>{
     try {
-        await connectDB(process.env.MONGO_URI)
+        await connectDB("mongodb+srv://Admin:715417@node-project.yztgtou.mongodb.net/sample_pay")
         app.listen(port, console.log(`SERVER IS LISTENING ON PORT ${port}...`));
     } catch (error) {
         console.log(error)
