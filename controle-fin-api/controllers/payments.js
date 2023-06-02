@@ -1,55 +1,57 @@
 const Payments = require("../models/payments");
 const asyncWrapper = require("../middleware/async");
+const { createCustomError } = require('../errors/custom-error')
 
 const getAllPayments = asyncWrapper(async (req, res) => {
     const payments = await Payments.find({})
     res.status(200).json({ payments })
 })
   
-const createTask = asyncWrapper(async (req, res) => {
-    const task = await Task.create(req.body)
-    res.status(201).json({ task })
+const createPayments = asyncWrapper(async (req, res) => {
+    const payments = await Payments.create(req.body)
+    res.status(201).json({ payments })
 })
   
-const getTask = asyncWrapper(async (req, res, next) => {
-    const { id: taskID } = req.params
-    const task = await Task.findOne({ _id: taskID })
-    if (!task) {
-        return next(createCustomError(`No task with id : ${taskID}`, 404))
+const getPayments = asyncWrapper(async (req, res, next) => {
+    const { id: payID } = req.params
+    const payments = await Payments.findOne({ _id: payID })
+    if (!payments) {
+        return next(createCustomError(`No task with id : ${payID}`, 404))
     }
   
-    res.status(200).json({ task })
+    res.status(200).json({ payments })
 })
 
-const deleteTask = asyncWrapper(async (req, res, next) => {
-    const { id: taskID } = req.params
-    const task = await Task.findOneAndDelete({ _id: taskID })
-    if (!task) {
-        return next(createCustomError(`No task with id : ${taskID}`, 404))
+const deletePayments = asyncWrapper(async (req, res, next) => {
+    const { id: payID } = req.params
+    console.log(payID);
+    const payments = await Payments.findOneAndDelete({ _id: payID })
+    if (!payments) {
+        return next(createCustomError(`No task with id : ${payID}`, 404))
     }
-    res.status(200).json({ task })
+    res.status(200).json({ payments })
 })
 
-const updateTask = asyncWrapper(async (req, res, next) => {
-    const { id: taskID } = req.params
+const updatePayments = asyncWrapper(async (req, res, next) => {
+    const { id: payID } = req.params
 
-    const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+    const payments = await Payments.findOneAndUpdate({ _id: payID }, req.body, {
         new: true,
         runValidators: true,
     })
   
-    if (!task) {
-      return next(createCustomError(`No task with id : ${taskID}`, 404))
+    if (!payments) {
+      return next(createCustomError(`No task with id : ${payID}`, 404))
     }
   
-    res.status(200).json({ task })
+    res.status(200).json({ payments })
 })
   
   module.exports = {
     getAllPayments,
-    createTask,
-    getTask,
-    updateTask,
-    deleteTask,
+    createPayments,
+    getPayments,
+    updatePayments,
+    deletePayments,
 }
   

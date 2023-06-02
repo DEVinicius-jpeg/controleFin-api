@@ -9,7 +9,7 @@ const PaymentsSchema = new mongoose.Schema({
     },
     amount: {
         type: Number,
-        required: [true, 'must provider a description'],
+        required: [true, 'must provider a value'],
     },
     expense: {
         type: Boolean,
